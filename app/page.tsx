@@ -1,54 +1,294 @@
-import DeployButton from "../components/DeployButton";
-import AuthButton from "../components/AuthButton";
-import { createClient } from "@/utils/supabase/server";
-import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
-import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
-import Header from "@/components/Header";
+import Link from "next/link";
 
-export default async function Index() {
-  const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
-    try {
-      createClient();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
-
-  const isSupabaseConnected = canInitSupabaseClient();
-
+export default function Component() {
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-          <DeployButton />
-          {isSupabaseConnected && <AuthButton />}
-        </div>
-      </nav>
-
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
-        <Header />
-        <main className="flex-1 flex flex-col gap-6">
-          <h2 className="font-bold text-4xl mb-4">Next steps</h2>
-          {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-        </main>
-      </div>
-
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-        <p>
-          Powered by{" "}
-          <a
-            href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
+    <div key="1" className="flex flex-col min-h-[100dvh]">
+      <header className="px-4 lg:px-6 h-14 flex items-center">
+        <Link className="flex items-center justify-center" href="#">
+          <MountainIcon className="h-6 w-6" />
+          <span className="sr-only">Acme Loans</span>
+        </Link>
+        <nav className="ml-auto flex gap-4 sm:gap-6">
+          <Link
+            className="text-sm font-medium hover:underline underline-offset-4"
+            href="#"
           >
-            Supabase
-          </a>
-        </p>
-      </footer>
+            Features
+          </Link>
+          <Link
+            className="text-sm font-medium hover:underline underline-offset-4"
+            href="#"
+          >
+            Pricing
+          </Link>
+          <Link
+            className="text-sm font-medium hover:underline underline-offset-4"
+            href="#"
+          >
+            About
+          </Link>
+          <Link
+            className="text-sm font-medium hover:underline underline-offset-4"
+            href="#"
+          >
+            Contact
+          </Link>
+        </nav>
+      </header>
+      <main className="flex-1">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+          <div className="container px-4 md:px-6">
+            <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+              <div className="flex flex-col justify-center space-y-4">
+                <div className="space-y-2">
+                  <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-6xl/none">
+                    Unlock Your Business Potential with Acme Loans
+                  </h1>
+                  <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
+                    Access the funding you need to grow your small business with
+                    our AI-powered loan approval process and data-driven risk
+                    assessment.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                  <Link
+                    className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                    href="#"
+                  >
+                    Apply for a Loan
+                  </Link>
+                  <Link
+                    className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200  bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+                    href="#"
+                  >
+                    Learn More
+                  </Link>
+                </div>
+              </div>
+              <img
+                alt="Hero"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
+                height="550"
+                src="/placeholder.svg"
+                width="550"
+              />
+            </div>
+          </div>
+        </section>
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">
+                  Key Features
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                  Streamline Your Business Financing
+                </h2>
+                <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                  Our platform offers a suite of tools to help small businesses
+                  access the funding they need, with AI-powered loan approvals,
+                  data analytics, and credit risk scoring.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+              <div className="flex flex-col justify-center space-y-4">
+                <ul className="grid gap-6">
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold">
+                        AI-Powered Loan Approvals
+                      </h3>
+                      <p className="text-gray-500 dark:text-gray-400">
+                        Our advanced algorithms analyze your financial data to
+                        provide fast and accurate loan decisions, tailored to
+                        your business needs.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold">
+                        Data-Driven Risk Assessment
+                      </h3>
+                      <p className="text-gray-500 dark:text-gray-400">
+                        Leverage our credit risk scoring and data analytics to
+                        assess the feasibility of your projects and the
+                        likelihood of loan repayment.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold">
+                        Feasibility Tracking
+                      </h3>
+                      <p className="text-gray-500 dark:text-gray-400">
+                        Monitor the progress of your funded projects and receive
+                        real-time insights to ensure successful loan repayment.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <img
+                alt="Image"
+                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+                height="310"
+                src="/placeholder.svg"
+                width="550"
+              />
+            </div>
+          </div>
+        </section>
+        <section className="w-full py-12 md:py-24 lg:py-32 border-t">
+          <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
+            <div className="space-y-3">
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+                Trusted by Small Businesses Nationwide
+              </h2>
+              <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                Our platform has helped countless small businesses access the
+                funding they need to grow and thrive.
+              </p>
+            </div>
+            <div className="divide-y rounded-lg border">
+              <div className="grid w-full grid-cols-3 items-stretch justify-center divide-x md:grid-cols-3">
+                <div className="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
+                  <img
+                    alt="Logo"
+                    className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
+                    height="70"
+                    src="/placeholder.svg"
+                    width="140"
+                  />
+                </div>
+                <div className="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
+                  <img
+                    alt="Logo"
+                    className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
+                    height="70"
+                    src="/placeholder.svg"
+                    width="140"
+                  />
+                </div>
+                <div className="mx-auto flex w-full items-center justify-center p-8">
+                  <img
+                    alt="Logo"
+                    className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
+                    height="70"
+                    src="/placeholder.svg"
+                    width="140"
+                  />
+                </div>
+              </div>
+              <div className="grid w-full grid-cols-3 items-stretch justify-center divide-x md:grid-cols-3">
+                <div className="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
+                  <img
+                    alt="Logo"
+                    className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
+                    height="70"
+                    src="/placeholder.svg"
+                    width="140"
+                  />
+                </div>
+                <div className="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
+                  <img
+                    alt="Logo"
+                    className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
+                    height="70"
+                    src="/placeholder.svg"
+                    width="140"
+                  />
+                </div>
+                <div className="mx-auto flex w-full items-center justify-center p-4 sm:p-8">
+                  <img
+                    alt="Logo"
+                    className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center"
+                    height="70"
+                    src="/placeholder.svg"
+                    width="140"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center space-x-4">
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                href="#"
+              >
+                Apply for a Loan
+              </Link>
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+                href="#"
+              >
+                Learn More
+              </Link>
+            </div>
+          </div>
+        </section>
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
+          <div className="container px-4 md:px-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-gradient-to-r from-[#4c51bf] to-[#6b46c1] rounded-lg p-6 text-white">
+                <h3 className="text-xl font-bold">
+                  Detailed Profile Application
+                </h3>
+                <p>
+                  Our detailed application process ensures we have a complete
+                  understanding of your business and financial needs. We'll work
+                  with you to gather all the necessary information to provide
+                  the best loan solution.
+                </p>
+              </div>
+              <div className="bg-gradient-to-r from-[#38a169] to-[#2c7a7b] rounded-lg p-6 text-white">
+                <h3 className="text-xl font-bold">
+                  Easy Apply for Different Schemes
+                </h3>
+                <p>
+                  Easily apply for different loan schemes and integrate with
+                  existing government infrastructure to streamline the
+                  application process.
+                </p>
+              </div>
+              <div className="bg-gradient-to-r from-[#e53e3e] to-[#f56565] rounded-lg p-6 text-white">
+                <h3 className="text-xl font-bold">Admin Dashboard</h3>
+                <p>
+                  Access a detailed report of your loan application, including
+                  all the scores, likelihood of success, and repayment amount
+                  predictions, all in one convenient dashboard.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+              <div className="flex flex-col justify-center space-y-4">
+                <form className="grid gap-6" />
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
+  );
+}
+
+function MountainIcon(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+    </svg>
   );
 }
