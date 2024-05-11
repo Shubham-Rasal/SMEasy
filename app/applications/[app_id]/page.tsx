@@ -60,13 +60,7 @@ export default function Dashboard() {
                 <LandmarkIcon className="h-4 w-4" />
                 Loan Applications
               </Link>
-              <Link
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
-              >
-                <UsersIcon className="h-4 w-4" />
-                Customers
-              </Link>
+
               <Link
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                 href="#"
@@ -236,9 +230,11 @@ export default function Dashboard() {
                   <CardTitle>Analysis</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid gap-4">
-                    <LineChart className="aspect-[4/3]" />
-                    <BarChart className="aspect-[4/3]" />
+                  <div className="flex flex-col">
+                    <div className="h-64 flex">
+                      <LineChart className="aspect-[4/3] " />
+                      <BarChart className="aspect-[4/3]" />
+                    </div>
                     <div>
                       <p className="text-lg font-semibold">
                         AI-generated Insights:

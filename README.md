@@ -8,14 +8,11 @@ show some genuine stats
 add one hugginface api for simple ml and one for doc inference 
 add approve button to update status 
 pitch deck
-update features section
-fin automation svg update logo everywhere 
 make video
 
+divide
+personal details - name, marital status, sex 
+contact details - address, phone number, email
+employment details - job title, monthly income
+bank - savings, credit score
 
-loan amount,
-purpose,
-credit score
-financial docs - bank statements, tax returns, pay stubs, etc.
-term,
-text area for request

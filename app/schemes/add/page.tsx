@@ -34,30 +34,30 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 export default function AddScheme() {
+  const [schemeId, setSchemeId] = useState(890);
   const [schemeName, setSchemeName] = useState(
-    "Financial Support to MSMEs in ZED Certification Scheme"
+    "CLCSS - Credit Linked Capital Subsidy Scheme"
   );
-  const [schemeId, setSchemeId] = useState("");
   const [guaranteeCover, setGuaranteeCover] = useState(
-    "50% to 80% Subsidy for MSMEs towards ZED Certification"
+    "15% capital subsidy (Upto Rs.15 lakh) of investment in eligible Plant & Machinery"
   );
   const [objectives, setObjectives] = useState(
-    "The scheme is an extensive drive to create proper awareness in MSMEs about ZED manufacturing and motivate them for assessment of their enterprise for ZED and support them. After ZED assessment, MSMEs can reduce wastages substantially, increase productivity, expand their market as IOPs, become vendors to CPSUs, have more IPRs, develop new products and processes etc."
+    "The Scheme aims at facilitating technology up-gradation by providing 15% upfront capital subsidy up to a maximum cap of ₹ 15 lakhs  to MSE units including tiny, khadi, village and coir industrial units on institutional finance availed by them for up-gradation of the present technology level to a substantially higher one involving improved productivity."
   );
   const [description, setDescription] = useState(
-    "Assessment & Rating/Re-rating/Gap analysis/Hand holding"
+    "MSEs can get a capital subsidy (15%) on credit availed for technology upgradation"
   );
   const [activities, setActivities] = useState(
-    "a) Assessment/Rating by empanelled Credit Rating Agencies/other Agencies valid for 4 years (Ministry of MSME will subsidize* 80% of Micro, 60% of Small, 50% of Medium Enterprises' Certification Fee: average 70% of Fee) (Assessment Fee Rs. 10,000/-& Rs 80,000/- per enterprise respectively for Desktop Assessment and ZED rating Complete Assessment).\n\nb) Additional rating for Defence angle i.e. Defence ZED by empanelled Credit Rating Agencies/other Agencies valid for 4 years (Ministry of MSME will subsidize* 80% of Micro, 60% of Small, 50% of Medium Enterprises' Certification Fee: average 70% of Fee) (Assessment Fee Rs. 40,000/- per enterprise.\n\nc) Gap Analysis, Handholding, Consultancy for improving rating of MSMEs by Consultants through QCI/NPC, Field formations of O/o DC-MSME viz. MSME-DI, MSME-TC including its autonomous bodies, BEE etc. (Ministry of MSME will subsidize* 80% of Micro, 60% of Small, 50% of Medium Enterprises' Consultancy charges: average 70% of Fee) (Hand holding charges Rs. 1.9 Lakh per enterprise whereas in case of MSMEs owned by SC/ST entrepreneurs additional support of Rs 10,000/- will be provided.\n\nd) Re-Assessment/Re-Rating by Credit Rating Agencies & Other Agencies (Ministry of MSME will subsidize* 80% of Micro, 60% of Small, 50% of Medium Enterprises' Certification Fee: average 70% of Fee) (Assessment Fee Rs. 40000/- per enterprise."
+    "Not specified in the provided information."
   );
   const [whoCanApply, setWhoCanApply] = useState(
-    "Manufacturing Micro, Small & Medium Enterprises."
+    "1. Banks and financial institutions can apply to DC-MSME for availing support.\n\n2. MSMEs need to directly contact the respective banks for getting credit and capital subsidy."
   );
   const [guidelinesLink, setGuidelinesLink] = useState(
-    "http://dcmsme.gov.in/Guidelines-ZED-Final.pdf"
+    "http://msme.gov.in/WriteReadData/DocumentFile/CreditLinkCapitalSubsidyScheme.pdf"
   );
   const [achievementsLink, setAchievementsLink] = useState(
-    "http://msme.gov.in/MyMsme/Reg/COM_ZedAppForm.aspx"
+    "http://msme.gov.in/MyMsme/Reg/COM_ClcssAppForm.aspx"
   );
 
   const handleSubmit = async () => {
@@ -97,7 +97,7 @@ export default function AddScheme() {
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6">
-            <Link className="flex items-center gap-2 font-semibold" href="#">
+            <Link className="flex items-center gap-2 font-semibold" href="/">
               <Package2Icon className="h-6 w-6" />
               <span>SMEasy</span>
             </Link>
@@ -109,8 +109,8 @@ export default function AddScheme() {
           <div className="flex-1 overflow-auto py-2">
             <nav className="grid items-start px-4 text-sm font-medium">
               <Link
-                className="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
-                href="/dashboard"
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                href="/admin"
               >
                 <HomeIcon className="h-4 w-4" />
                 Dashboard
@@ -122,26 +122,13 @@ export default function AddScheme() {
                 <LandmarkIcon className="h-4 w-4" />
                 Loan Applications
               </Link>
+
               <Link
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
-              >
-                <UsersIcon className="h-4 w-4" />
-                Customers
-              </Link>
-              <Link
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
+                className="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
+                href="/schemes/add"
               >
                 <LineChartIcon className="h-4 w-4" />
                 Schemes
-              </Link>
-              <Link
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
-              >
-                <SettingsIcon className="h-4 w-4" />
-                Settings
               </Link>
             </nav>
           </div>
@@ -165,7 +152,7 @@ export default function AddScheme() {
                     placeholder="Enter scheme ID"
                     type="number"
                     value={schemeId}
-                    onChange={(e) => setSchemeId(e.target.value)}
+                    onChange={(e) => setSchemeId(parseInt(e.target.value))}
                   />
                 </div>
                 <div className="space-y-2">

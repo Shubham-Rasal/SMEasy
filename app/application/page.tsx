@@ -1,204 +1,138 @@
-"use client";
-
-import { useState } from "react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import {
+  SelectValue,
+  SelectTrigger,
+  SelectItem,
+  SelectContent,
+  Select,
+} from "@/components/ui/select";
+import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useMultiplestepForm } from "@/hooks/useMultiplestepForm";
-import { AnimatePresence } from "framer-motion";
-import UserInfoForm from "@/components/UserInfoForm";
-import PlanForm from "@/components/PlanForm";
-import AddonsForm from "@/components/AddonsForm";
-import FinalStep from "@/components/FinalStep";
-import SuccessMessage from "@/components/SuccessMessage";
-import SideBar from "@/components/SideBar";
 
-interface AddOn {
-  id: number;
-  checked: boolean;
-  title: string;
-  subtitle: string;
-  price: number;
-}
-
-export type FormItems = {
-  name: string;
-  email: string;
-  phone: string;
-  plan: "personal" | "real estate" | "equipment";
-  yearly: boolean;
-  addOns: AddOn[];
-};
-
-const initialValues: FormItems = {
-  name: "Shubham Rasal",
-  email: "bluequbits@gmail.com",
-  phone: "7349784770",
-  plan: "personal",
-  yearly: false,
-  addOns: [
-    {
-      id: 1,
-      checked: true,
-      title: "Online Service",
-      subtitle: "Access to multiple games",
-      price: 1,
-    },
-    {
-      id: 2,
-      checked: false,
-      title: "Large storage",
-      subtitle: "Extra 1TB of cloud save",
-      price: 2,
-    },
-    {
-      id: 3,
-      checked: false,
-      title: "Customizable Profile",
-      subtitle: "Custom theme on your profile",
-      price: 2,
-    },
-  ],
-};
-
-export default function Home() {
-  const [formData, setFormData] = useState(initialValues);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const {
-    previousStep,
-    nextStep,
-    currentStepIndex,
-    isFirstStep,
-    isLastStep,
-    steps,
-    goTo,
-    showSuccessMsg,
-  } = useMultiplestepForm(4);
-
-  function updateForm(fieldToUpdate: Partial<FormItems>) {
-    const { name, email, phone } = fieldToUpdate;
-
-    if (name && name.trim().length < 3) {
-      setErrors((prevState) => ({
-        ...prevState,
-        name: "Name should be at least 3 characters long",
-      }));
-    } else if (name && name.trim().length > 15) {
-      setErrors((prevState) => ({
-        ...prevState,
-        name: "Name should be no longer than 15 characters",
-      }));
-    } else {
-      setErrors((prevState) => ({
-        ...prevState,
-        name: "",
-      }));
-    }
-
-    if (email && !/\S+@\S+\.\S+/.test(email)) {
-      setErrors((prevState) => ({
-        ...prevState,
-        email: "Please enter a valid email address",
-      }));
-    } else {
-      setErrors((prevState) => ({
-        ...prevState,
-        email: "",
-      }));
-    }
-
-    if (phone && !/^[0-9]{10}$/.test(phone)) {
-      setErrors((prevState) => ({
-        ...prevState,
-        phone: "Please enter a valid 10-digit phone number",
-      }));
-    } else {
-      setErrors((prevState) => ({
-        ...prevState,
-        phone: "",
-      }));
-    }
-
-    setFormData({ ...formData, ...fieldToUpdate });
-  }
-
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (Object.values(errors).some((error) => error)) {
-      return;
-    }
-    nextStep();
-  };
-
+export default function Component() {
   return (
-    <div
-      className={`flex justify-between ${
-        currentStepIndex === 1 ? "h-[600px] md:h-[500px]" : "h-[500px]"
-      } w-11/12 max-w-4xl relative m-1 rounded-lg border border-neutral-700 p-4`}
-    >
-      {!showSuccessMsg ? (
-        <SideBar currentStepIndex={currentStepIndex} goTo={goTo} />
-      ) : (
-        ""
-      )}
-      <main
-        className={`${showSuccessMsg ? "w-full" : "w-full md:mt-5 md:w-[65%]"}`}
-      >
-        {showSuccessMsg ? (
-          <AnimatePresence mode="wait">
-            <SuccessMessage />
-          </AnimatePresence>
-        ) : (
-          <form
-            onSubmit={handleOnSubmit}
-            className="w-full flex flex-col justify-between h-full"
-          >
-            <AnimatePresence mode="wait">
-              {currentStepIndex === 0 && (
-                <UserInfoForm
-                  key="step1"
-                  {...formData}
-                  updateForm={updateForm}
-                  errors={errors}
-                />
-              )}
-              {currentStepIndex === 1 && (
-                <PlanForm key="step2" {...formData} updateForm={updateForm} />
-              )}
-              {currentStepIndex === 2 && (
-                <AddonsForm key="step3" {...formData} updateForm={updateForm} />
-              )}
-              {currentStepIndex === 3 && (
-                <FinalStep key="step4" {...formData} goTo={goTo} />
-              )}
-            </AnimatePresence>
-            <div className="w-full items-center flex justify-between">
-              <div className="">
-                <Button
-                  onClick={previousStep}
-                  type="button"
-                  variant="ghost"
-                  className={`${
-                    isFirstStep
-                      ? "invisible"
-                      : "visible p-0 text-neutral-900 hover:text-white"
-                  }`}
-                >
-                  Go Back
-                </Button>
+    <div className="mx-auto w-screen space-y-6 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="space-y-2 text-center">
+        <h1 className="text-3xl font-bold">Loan Application</h1>
+        <p className="text-gray-500 dark:text-gray-400">
+          Fill out the form to apply for a loan.
+        </p>
+      </div>
+      <form className="space-y-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="loan-amount">Name</Label>
+            <Input id="name" placeholder="Enter name" type="text" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="loan-amount">Marital Status</Label>
+            <Input
+              id="loan-amount"
+              placeholder="Enter loan amount"
+              required
+              type="text"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="loan-amount">Age</Label>
+            <Input
+              id="loan-amount"
+              placeholder="Enter age"
+              required
+              type="number"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="loan-amount">Loan Amount</Label>
+            <Input
+              id="loan-amount"
+              placeholder="Enter loan amount"
+              required
+              type="number"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="loan-amount">Business Type</Label>
+            <Input
+              id="loan-amount"
+              placeholder="Enter business type"
+              required
+              type="text"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="purpose">Purpose of Loan</Label>
+            <Select required>
+              <SelectTrigger>
+                <SelectValue placeholder="Select purpose" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="home-purchase">Home Purchase</SelectItem>
+                <SelectItem value="home-improvement">
+                  Home Improvement
+                </SelectItem>
+                <SelectItem value="debt-consolidation">
+                  Debt Consolidation
+                </SelectItem>
+                <SelectItem value="small-business">Small Business</SelectItem>
+                <SelectItem value="personal">Personal</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="credit-score">Credit Score</Label>
+            <Input
+              id="credit-score"
+              placeholder="Enter your credit score"
+              required
+              type="number"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="documents">Financial Documents</Label>
+            <Input id="documents" multiple required type="file" />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="loan-term">Loan Term</Label>
+            <RadioGroup defaultValue="12-months">
+              <div className="flex items-center space-x-4">
+                <RadioGroupItem id="12-months" value="12-months" />
+                <Label htmlFor="12-months">12 Months</Label>
               </div>
-              <div className="flex items-center">
-                <div className="relative after:pointer-events-none after:absolute after:inset-px after:rounded-[11px] after:shadow-highlight after:shadow-white/10 focus-within:after:shadow-[#77f6aa] after:transition">
-                  <Button
-                    type="submit"
-                    className="relative text-neutral-200 bg-neutral-900 border border-black/20 shadow-input rounded-xl hover:text-white"
-                  >
-                    {isLastStep ? "Confirm" : "Next Step"}
-                  </Button>
-                </div>
+              <div className="flex items-center space-x-4">
+                <RadioGroupItem id="24-months" value="24-months" />
+                <Label htmlFor="24-months">24 Months</Label>
               </div>
-            </div>
-          </form>
-        )}
-      </main>
+              <div className="flex items-center space-x-4">
+                <RadioGroupItem id="36-months" value="36-months" />
+                <Label htmlFor="36-months">36 Months</Label>
+              </div>
+            </RadioGroup>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="request-letter">Address</Label>
+            <Textarea id="request-letter" placeholder="Address" required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="request-letter">Request Letter</Label>
+            <Textarea
+              id="request-letter"
+              placeholder="Explain why you need the loan"
+              required
+            />
+          </div>
+        </div>
+        <div className="flex justify-end">
+          <Button type="submit">Submit Application</Button>
+        </div>
+      </form>
     </div>
   );
 }

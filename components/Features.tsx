@@ -30,8 +30,8 @@ const FeaturesData: Feature[] = [
   },
   {
     id: 4,
-    name: "Customizable",
-    description: "Customize the UI to fit your brand and style.",
+    name: "Schemes Recommendation",
+    description: "Recommends government schemes based on your application",
     icon: <Feather size={iconSize} />,
   },
   {
@@ -42,8 +42,8 @@ const FeaturesData: Feature[] = [
   },
   {
     id: 6,
-    name: "Regularly Updated",
-    description: "",
+    name: "Regulation and Compliance",
+    description: "Ensuring trust and compliance with all regulations",
     icon: <Clock size={iconSize} />,
   },
 ];

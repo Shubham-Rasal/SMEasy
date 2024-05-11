@@ -48,7 +48,7 @@ export default function Dashboard() {
             <nav className="grid items-start px-4 text-sm font-medium">
               <Link
                 className="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
-                href="/dashboard"
+                href="/admin"
               >
                 <HomeIcon className="h-4 w-4" />
                 Dashboard
@@ -60,26 +60,13 @@ export default function Dashboard() {
                 <LandmarkIcon className="h-4 w-4" />
                 Loan Applications
               </Link>
+
               <Link
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
-              >
-                <UsersIcon className="h-4 w-4" />
-                Customers
-              </Link>
-              <Link
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
+                href="/schemes/add"
               >
                 <LineChartIcon className="h-4 w-4" />
-                Analytics
-              </Link>
-              <Link
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
-              >
-                <SettingsIcon className="h-4 w-4" />
-                Settings
+                Add Schemes
               </Link>
             </nav>
           </div>
@@ -91,15 +78,7 @@ export default function Dashboard() {
             <div className="col-span-2 bg-white p-6 rounded-lg shadow-md">
               <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-semibold">Overview</h1>
-                <Select>
-                  <SelectTrigger id="overview-user">
-                    <SelectValue placeholder="Stephanie Waldeck" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    <SelectItem value="stephanie">Stephanie Waldeck</SelectItem>
-                    <SelectItem value="other-user">Other User</SelectItem>
-                  </SelectContent>
-                </Select>
+
                 <Button className="ml-auto" variant="secondary">
                   Export
                 </Button>
@@ -107,10 +86,10 @@ export default function Dashboard() {
               <div className="grid grid-cols-3 gap-4">
                 <div className="bg-transparent border-[#4ADE80] border p-4 rounded-lg">
                   <p className="text-xs text-[#4ADE80] mb-1">
-                    Applications ($)
+                    Applications (&#8377;)
                   </p>
                   <p className="text-lg font-semibold text-[#16A34A]">
-                    &#8377; 2,165,800
+                    &#8377;2,165,800
                   </p>
                   <p className="text-xs text-[#16A34A]">+3.2%</p>
                 </div>
@@ -118,30 +97,27 @@ export default function Dashboard() {
                   <p className="text-xs text-[#FDE047] mb-1">
                     Applications (#)
                   </p>
-                  <p className="text-lg font-semibold text-[#D97706]">720</p>
+                  <p className="text-lg font-semibold text-[#D97706]">7</p>
                   <p className="text-xs text-[#D97706]">+8.4%</p>
                 </div>
                 <div className="bg-transparent border-[#FDBA74] border p-4 rounded-lg">
                   <p className="text-xs text-[#FDBA74] mb-1">Loans ($)</p>
                   <p className="text-lg font-semibold text-[#C2410C]">
-                    $136,400
+                    &#8377;1,136,400
                   </p>
                   <p className="text-xs text-[#C2410C]">-0.9%</p>
                 </div>
-                <div className="bg-transparent border-[#FCA5A5] border p-4 rounded-lg">
-                  <p className="text-xs text-[#FCA5A5] mb-1">Loans (#)</p>
-                  <p className="text-lg font-semibold text-[#DC2626]">121</p>
-                  <p className="text-xs text-[#DC2626]">+1.9%</p>
-                </div>
               </div>
-              <BarChart className="" />
+              <BarChart className="pt-12" />
+              <span className="text-xs text-muted-foreground mt-4">
+                (*) Application over Past few Months.
+              </span>
             </div>
             <div className="bg-white  p-6 rounded-lg shadow-md">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold">Daily Activity</h2>
               </div>
               <Calendar
-                
                 mode="multiple"
                 selected={dates}
                 // onSelect={(date) => setDates(ate)}
@@ -226,12 +202,12 @@ function BarChart(props: any) {
     <div {...props}>
       <ResponsiveBar
         data={[
-          { name: "Jan", count: 111 },
-          { name: "Feb", count: 157 },
-          { name: "Mar", count: 129 },
-          { name: "Apr", count: 150 },
-          { name: "May", count: 119 },
-          { name: "Jun", count: 72 },
+          { name: "Jan", count: 11 },
+          { name: "Feb", count: 5 },
+          { name: "Mar", count: 19 },
+          { name: "Apr", count: 10 },
+          { name: "May", count: 9 },
+          { name: "Jun", count: 7 },
         ]}
         keys={["count"]}
         indexBy="name"

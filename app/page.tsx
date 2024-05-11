@@ -7,13 +7,19 @@ export default function Component() {
   return (
     <div key="1" className="flex flex-col min-h-[100dvh]">
       <header className="px-4 lg:px-6 h-14 flex items-center sticky top-0 z-10 opacity-90 bg-slate-200">
-        <Link className="flex items-center justify-center" href="#">
+        <Link className="flex items-center justify-center" href="/">
           <MountainIcon className="h-6 w-6" />
           <span className="text-xl font-bold tracking-tighter sm:text-2xl">
             SMEasy
           </span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
+          <Link
+            className="text-sm items-center flex font-medium hover:underline underline-offset-4"
+            href="/admin"
+          >
+            Admin Dashboard
+          </Link>
           <Link
             className="text-sm items-center flex font-medium hover:underline underline-offset-4"
             href="/login"
@@ -84,12 +90,11 @@ export default function Component() {
                   <li>
                     <div className="grid gap-1">
                       <h3 className="text-xl font-bold">
-                        AI-Powered Loan Approvals
+                        AI-Powered Scheme Recommendations
                       </h3>
                       <p className="text-gray-500 dark:text-gray-400">
-                        Our real estate algorithms analyze your financial data to
-                        provide fast and accurate loan decisions, tailored to
-                        your business needs.
+                        Our algorithms analyze your financial data to
+                        provide valuable and accurate government schemes information that match your business needs.
                       </p>
                     </div>
                   </li>
