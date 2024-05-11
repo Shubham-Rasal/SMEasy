@@ -1,3 +1,5 @@
+"use client";
+
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,8 +12,26 @@ import {
 import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 
-export default function Component() {
+export default function LoanApplication() {
+  const [selectedPurpose, setSelectedPurpose] =
+    useState<string>("home-improvement");
+  const [selectedTerm, setSelectedTerm] = useState<string>("12-months");
+  const [selectedMaritalStatus, setSelectedMaritalStatus] =
+    useState<string>("not married");
+
+  const [name, setName] = useState<string>("Shubham Rasal");
+  const [age, setAge] = useState<number>(23);
+  const [loanAmount, setLoanAmount] = useState<number>(120000);
+  const [businessType, setBusinessType] = useState<string>("IT");
+  const [creditScore, setCreditScore] = useState<number>(750);
+  const [address, setAddress] = useState<string>("Pune");
+  const [requestLetter, setRequestLetter] = useState<string>(
+    "I am an owner of a ZED certified MSE in Pune. I am looking for a loan to expand my business."
+  );
+
   return (
     <div className="mx-auto w-screen space-y-6 py-12 px-4 sm:px-6 lg:px-8">
       <div className="space-y-2 text-center">
