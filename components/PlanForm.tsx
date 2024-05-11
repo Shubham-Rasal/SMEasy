@@ -6,16 +6,16 @@ import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import FormWrapper from "./FormWrapper";
-import { FormItems } from "@/app/page";
-import arcadeImg from "../public/assets/arcade.png";
-import advancedImg from "../public/assets/game-console.png";
+import { FormItems } from "@/app/application/page";
+import personalImg from "../public/assets/personal.png";
+import game from "../public/assets/game-console.png";
 import proImg from "../public/assets/online-gaming.png";
 
 type stepProps = FormItems & {
   updateForm: (fieldToUpdate: Partial<FormItems>) => void;
 };
 
-type Plan = "arcade" | "advanced" | "pro";
+type Plan = "personal" | "real estate" | "equipment";
 
 const PlanForm = ({ updateForm, plan, yearly }: stepProps) => {
   const [yearlyUpdated, setYearlyUpdated] = useState(yearly);
@@ -46,12 +46,12 @@ const PlanForm = ({ updateForm, plan, yearly }: stepProps) => {
         onValueChange={handleValueChange}
       >
         <ToggleGroup.Item
-          value="arcade"
+          value="personal"
           className="border border-neutral-600 flex items-start gap-3 p-3 h-24 rounded-md aspect-square data-[state=on]:border-[#77f6aa] data-[state=on]:bg-[#77f6aa] focus:border-[#77f6aa] outline-none hover:border-[#77f6aa] md:h-44 md:w-[30%] md:flex-col md:justify-between md:gap-0"
         >
-          <Image src={arcadeImg} alt="arcade" width="40" height="40" />
+          {/* <Image src={personalImg} alt="personal" width="40" height="40" /> */}
           <div className="relative -top-1 flex flex-col items-start md:top-0">
-            <p className="text-white font-semibold">Arcade</p>
+            <p className="text-white font-semibold">personal</p>
             <p className="text-sm">{yearly ? "$90/yr" : "$9/mo"}</p>
             {yearly && (
               <span className="text-white text-sm">2 months free</span>
@@ -59,12 +59,12 @@ const PlanForm = ({ updateForm, plan, yearly }: stepProps) => {
           </div>
         </ToggleGroup.Item>
         <ToggleGroup.Item
-          value="advanced"
+          value=""
           className="border border-neutral-600 flex items-start gap-3 p-3 h-24 rounded-md aspect-square data-[state=on]:border-[#77f6aa] data-[state=on]:bg-[#77f6aa] focus:border-[#77f6aa] outline-none hover:border-[#77f6aa] md:h-44 md:w-[30%] md:flex-col md:justify-between md:gap-0"
         >
-          <Image src={advancedImg} alt="advanced" width="40" height="40" />
+          {/* <Image src="" alt="real estate" width="40" height="40" /> */}
           <div className="relative -top-1 flex flex-col items-start md:top-0">
-            <p className="text-white font-semibold">Advanced</p>
+            <p className="text-white font-semibold">real estate</p>
             <p className="text-sm">{yearly ? "$120/yr" : "$12/mo"}</p>
             {yearly && (
               <span className="text-white text-sm">2 months free</span>
@@ -74,9 +74,9 @@ const PlanForm = ({ updateForm, plan, yearly }: stepProps) => {
 
         <ToggleGroup.Item
           className="border border-neutral-600 flex items-start gap-3 p-3 h-24 rounded-md aspect-square data-[state=on]:border-[#77f6aa] data-[state=on]:bg-[#77f6aa] focus:border-[#77f6aa] outline-none hover:border-[#77f6aa] md:h-44 md:w-[30%] md:flex-col md:justify-between md:gap-0"
-          value="pro"
+          value="equipment"
         >
-          <Image src={proImg} alt="pro" width="40" height="40" />
+          {/* <Image src={proImg} alt="equipment" width="40" height="40" /> */}
           <div className="relative -top-1 flex flex-col items-start md:top-0">
             <p className="text-white font-semibold">Pro</p>
             <p className="text-sm">{yearly ? "$150/yr" : "$15/mo"}</p>
@@ -97,7 +97,7 @@ const PlanForm = ({ updateForm, plan, yearly }: stepProps) => {
           <Switch
             id="airplane-mode"
             checked={yearlyUpdated}
-            // onCheckedChange={handleCheckedChange}
+            onCheckedChange={handleCheckedChange}
           />
           <Label
             htmlFor="airplane-mode"

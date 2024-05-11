@@ -12,13 +12,13 @@ type StepProps = FormItems & {
 const FinalStep = ({ yearly, plan, addOns, goTo }: StepProps) => {
   let planPrice = 0;
   switch (plan) {
-    case "arcade":
+    case "personal":
       planPrice = 9;
       break;
-    case "advanced":
+    case "real estate":
       planPrice = 12;
       break;
-    case "pro":
+    case "equipment":
       planPrice = 15;
       break;
     default:

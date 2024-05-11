@@ -23,7 +23,7 @@ export type FormItems = {
   name: string;
   email: string;
   phone: string;
-  plan: "arcade" | "advanced" | "pro";
+  plan: "personal" | "real estate" | "equipment";
   yearly: boolean;
   addOns: AddOn[];
 };
@@ -32,7 +32,7 @@ const initialValues: FormItems = {
   name: "Shubham Rasal",
   email: "bluequbits@gmail.com",
   phone: "7349784770",
-  plan: "arcade",
+  plan: "personal",
   yearly: false,
   addOns: [
     {
@@ -189,7 +189,7 @@ export default function Home() {
                 <div className="relative after:pointer-events-none after:absolute after:inset-px after:rounded-[11px] after:shadow-highlight after:shadow-white/10 focus-within:after:shadow-[#77f6aa] after:transition">
                   <Button
                     type="submit"
-                    className="relative text-neutral-200 bg-neutral-900 border border-black/20 shadow-input shadow-black/10 rounded-xl hover:text-white"
+                    className="relative text-neutral-200 bg-neutral-900 border border-black/20 shadow-input rounded-xl hover:text-white"
                   >
                     {isLastStep ? "Confirm" : "Next Step"}
                   </Button>

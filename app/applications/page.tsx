@@ -20,6 +20,8 @@ import {
   SettingsIcon,
   UsersIcon,
 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Applications() {
   return (
@@ -29,7 +31,7 @@ export default function Applications() {
           <div className="flex h-[60px] items-center border-b px-6">
             <Link className="flex items-center gap-2 font-semibold" href="#">
               <Package2Icon className="h-6 w-6" />
-              <span>Acme Bank</span>
+              <span>SMEasy</span>
             </Link>
             <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
               <BellIcon className="h-4 w-4" />
@@ -78,123 +80,116 @@ export default function Applications() {
         </div>
       </div>
       <div className="flex flex-col">
-        <div key="1" className="bg-[#F6F8FC] p-8">
-          <div className="grid grid-cols-3 gap-6">
-            <div className="col-span-2 bg-white p-6 rounded-lg shadow-md">
-              <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-semibold">Overview</h1>
-                <Select>
-                  <SelectTrigger id="overview-user">
-                    <SelectValue placeholder="Stephanie Waldeck" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    <SelectItem value="stephanie">Stephanie Waldeck</SelectItem>
-                    <SelectItem value="other-user">Other User</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Button className="ml-auto" variant="secondary">
-                  Export
-                </Button>
+        <section className="w-full py-6 md:py-10">
+          <div className="container grid gap-4 px-4 md:px-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">Loan Applications</h2>
+              <div className="relative">
+                <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500 dark:text-gray-400" />
+                <Input
+                  className="pl-10 pr-4 h-10 rounded-md border border-gray-200 bg-white text-sm shadow-sm focus:border-primary focus:outline-none dark:border-gray-800 dark:bg-gray-950 dark:text-gray-50"
+                  placeholder="Search applications..."
+                  type="search"
+                />
               </div>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="bg-transparent border-[#4ADE80] border p-4 rounded-lg">
-                  <p className="text-xs text-[#4ADE80] mb-1">
-                    Applications ($)
-                  </p>
-                  <p className="text-lg font-semibold text-[#16A34A]">
-                    $2,165,800
-                  </p>
-                  <p className="text-xs text-[#16A34A]">+3.2%</p>
-                </div>
-                <div className="bg-transparent border-[#FDE047] border p-4 rounded-lg">
-                  <p className="text-xs text-[#FDE047] mb-1">
-                    Applications (#)
-                  </p>
-                  <p className="text-lg font-semibold text-[#D97706]">720</p>
-                  <p className="text-xs text-[#D97706]">+8.4%</p>
-                </div>
-                <div className="bg-transparent border-[#FDBA74] border p-4 rounded-lg">
-                  <p className="text-xs text-[#FDBA74] mb-1">Loans ($)</p>
-                  <p className="text-lg font-semibold text-[#C2410C]">
-                    $136,400
-                  </p>
-                  <p className="text-xs text-[#C2410C]">-0.9%</p>
-                </div>
-                <div className="bg-transparent border-[#FCA5A5] border p-4 rounded-lg">
-                  <p className="text-xs text-[#FCA5A5] mb-1">Loans (#)</p>
-                  <p className="text-lg font-semibold text-[#DC2626]">121</p>
-                  <p className="text-xs text-[#DC2626]">+1.9%</p>
-                </div>
-              </div>
-              <BarChart className="" />
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold">Daily Activity</h2>
-                <div className="flex items-center">
-                  <Button className="mr-2" variant="outline">
-                    Last 5 Weeks
-                  </Button>
-                  <Button variant="secondary">Last Year</Button>
-                </div>
-              </div>
-              <Calendar className="mb-6" />
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold">Feb 10, 24</h3>
-                  <Link className="text-xs" href="#">
-                    All
-                  </Link>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="default">12 Notes</Badge>
-                  <p className="text-xs text-muted-foreground">
-                    10:08 AM - The borrower's loan application has been
-                    received.
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="secondary">L1</Badge>
-                  <p className="text-xs text-muted-foreground">
-                    11:12 AM - The lending team has requested additional
-                    information or documents from...
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="default">L2</Badge>
-                  <p className="text-xs text-muted-foreground">
-                    2:01 PM - The borrower has accepted the loan offer, and the
-                    funds have been...
-                  </p>
-                </div>
-                <Button className="self-start" variant="ghost">
-                  All
-                </Button>
-              </div>
+            <div className="grid gap-4">
+              <Link href="/applications/12345">
+                <Card className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors">
+                  <CardContent className="flex justify-between py-2 gap-4 items-center">
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-medium">
+                        Home Loan Application
+                      </h3>
+                      <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                        <Badge variant="outline">Real Estate</Badge>
+                        <span className="px-2 py-1 rounded-full bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400">
+                          Approved
+                        </span>
+                        <span>Application ID: #12345</span>
+                        <span>April 15, 2023</span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-2xl font-bold">&#8377;250,000</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        Loan Amount
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+              <Card className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors">
+                <CardContent className="flex justify-between py-2 gap-4 items-center">
+                  <div className="space-y-1">
+                    <h3 className="text-lg font-medium">
+                      Auto Loan Application
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                      <Badge variant="outline">Automotive</Badge>
+                      <span className="px-2 py-1 rounded-full bg-yellow-100 text-yellow-600 dark:bg-yellow-900/20 dark:text-yellow-400">
+                        Pending
+                      </span>
+                      <span>Application ID: #54321</span>
+                      <span>May 1, 2023</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-2xl font-bold">&#8377;35,000</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      Loan Amount
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors">
+                <CardContent className="flex justify-between py-2 gap-4 items-center">
+                  <div className="space-y-1">
+                    <h3 className="text-lg font-medium">
+                      Personal Loan Application
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                      <Badge variant="destructive">Personal</Badge>
+                      <span className="px-2 py-1 rounded-full bg-red-100 text-red-600 dark:bg-red-900/20 dark:text-red-400">
+                        Declined
+                      </span>
+                      <span>Application ID: #67890</span>
+                      <span>March 20, 2023</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-2xl font-bold">&#8377;15,000</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      Loan Amount
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-6 mt-6">
-            <div className="flex flex-col gap-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold">
-                  In Process Applications{" "}
-                  <Badge className="ml-2" variant="default">
-                    12
-                  </Badge>
-                </h3>
-              </div>
-              <div className="flex gap-4 overflow-x-auto scrollbar-hide">
-                <LoadCard />
-                <LoadCard />
-                <LoadCard />
-                <LoadCard />
-                <LoadCard />
-              </div>
-            </div>
-          </div>
-        </div>
+        </section>
       </div>
     </div>
+  );
+}
+
+function SearchIcon(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.3-4.3" />
+    </svg>
   );
 }
 
@@ -207,7 +202,7 @@ function LoadCard() {
           In-Process
         </Badge>
       </div>
-      <p className="text-4xl font-bold">$8,000</p>
+      <p className="text-4xl font-bold">&#8377;8,000</p>
       <p className="text-xs text-muted-foreground">#6823658 - Jan 8, 2024</p>
     </div>
   );
@@ -257,7 +252,7 @@ function BarChart(props: any) {
             },
           },
         }}
-        tooltipLabel={({ id }) => `${id}`}
+        tooltipLabel={({ id }) => `&#8377;{id}`}
         enableLabel={false}
         role="application"
         ariaLabel="A bar chart showing data"
