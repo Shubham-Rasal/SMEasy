@@ -26,6 +26,7 @@ export default function LoanApplication() {
     useState<string>("not married");
 
   const [name, setName] = useState<string>("Shubham Rasal");
+  const [email_id, setEmail] = useState<string>("bluequbits@gmail.com");
   const [age, setAge] = useState<number>(23);
   const [loanAmount, setLoanAmount] = useState<number>(120000);
   const [businessType, setBusinessType] = useState<string>("IT");
@@ -47,7 +48,7 @@ export default function LoanApplication() {
       return;
     }
 
-    const arr = [...files]
+    const arr = [...files];
 
     arr.forEach(async (file: File) => {
       // const { data, error } = await client.storage
@@ -70,9 +71,9 @@ export default function LoanApplication() {
       if (!reader) return;
       let fileData = null;
       reader.onloadend = function () {
-        if(!reader.result) return;
+        if (!reader.result) return;
         const result = reader.result as string;
-        const base64data = (result).split(",")[1];
+        const base64data = result.split(",")[1];
         console.log(base64data);
 
         const questions = [
@@ -120,6 +121,7 @@ export default function LoanApplication() {
         request_letter: requestLetter,
         marital_status: selectedMaritalStatus,
         term: selectedTerm,
+        email_id: email_id,
       },
     ]);
 
