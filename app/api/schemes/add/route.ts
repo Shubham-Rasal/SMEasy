@@ -36,16 +36,3 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ message: embedding });
 }
-
-// cgtmse_scheme (
-//     scheme_id INT PRIMARY KEY,
-//     scheme_name VARCHAR(100),
-//     guarantee_cover VARCHAR(100),
-//     objectives TEXT,
-//     description TEXT,
-//     activities TEXT,
-//     who_can_apply TEXT,
-//     scheme_guidelines_link VARCHAR(255),
-//     performance_achievements_link VARCHAR(255),
-//     embedding vector(384)
-// );

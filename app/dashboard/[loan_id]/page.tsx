@@ -13,7 +13,7 @@ import {
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 
-export default function Component() {
+export default function LoanStatus() {
   return (
     <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">

@@ -1,13 +1,4 @@
-"use client";
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectItem,
-  SelectContent,
-  Select,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { ResponsiveBar } from "@nivo/bar";
 import { Calendar } from "@/components/ui/calendar";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -22,8 +13,26 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { createClient } from "@/utils/supabase/server";
+import { loadBindings } from "next/dist/build/swc";
 
-export default function Applications() {
+export default async function Applications() {
+  const supabase = createClient();
+
+  let { data: loan_requests, error } = await supabase
+    .from("loan_requests")
+    .select("*");
+
+  console.log(loan_requests);
+
+  if (error) {
+    console.log("Error fetching loan requests", error);
+  }
+
+  if (!loan_requests) {
+    loan_requests = [];
+  }
+
   return (
     <div key="1" className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
@@ -81,77 +90,9 @@ export default function Applications() {
               </div>
             </div>
             <div className="grid gap-4">
-              <Link href="/applications/12345">
-                <Card className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors">
-                  <CardContent className="flex justify-between py-2 gap-4 items-center">
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-medium">
-                        Home Loan Application
-                      </h3>
-                      <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                        <Badge variant="outline">Real Estate</Badge>
-                        <span className="px-2 py-1 rounded-full bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400">
-                          Approved
-                        </span>
-                        <span>Application ID: #12345</span>
-                        <span>April 15, 2023</span>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-2xl font-bold">&#8377;250,000</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Loan Amount
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Card className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors">
-                <CardContent className="flex justify-between py-2 gap-4 items-center">
-                  <div className="space-y-1">
-                    <h3 className="text-lg font-medium">
-                      Auto Loan Application
-                    </h3>
-                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                      <Badge variant="outline">Automotive</Badge>
-                      <span className="px-2 py-1 rounded-full bg-yellow-100 text-yellow-600 dark:bg-yellow-900/20 dark:text-yellow-400">
-                        Pending
-                      </span>
-                      <span>Application ID: #54321</span>
-                      <span>May 1, 2023</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-2xl font-bold">&#8377;35,000</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Loan Amount
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors">
-                <CardContent className="flex justify-between py-2 gap-4 items-center">
-                  <div className="space-y-1">
-                    <h3 className="text-lg font-medium">
-                      Personal Loan Application
-                    </h3>
-                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                      <Badge variant="destructive">Personal</Badge>
-                      <span className="px-2 py-1 rounded-full bg-red-100 text-red-600 dark:bg-red-900/20 dark:text-red-400">
-                        Declined
-                      </span>
-                      <span>Application ID: #67890</span>
-                      <span>March 20, 2023</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-2xl font-bold">&#8377;15,000</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Loan Amount
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+              {loan_requests.map((loan_request: any) => (
+                <LoanCard key={loan_request.id} loan_request={loan_request} />
+              ))}
             </div>
           </div>
         </section>
@@ -180,70 +121,83 @@ function SearchIcon(props: any) {
   );
 }
 
-function LoadCard() {
+function LoanCard({ loan_request }: any) {
   return (
-    <div className="flex flex-col justify-between items-start bg-white text-slate-900 border border-black p-4 rounded-lg shrink-0 w-[300px]">
-      <div className="flex justify-between w-full">
-        <p className="text-sm font-bold ">Student Loan</p>
-        <Badge className="self-start" variant="default">
-          In-Process
-        </Badge>
-      </div>
-      <p className="text-4xl font-bold">&#8377;8,000</p>
-      <p className="text-xs text-muted-foreground">#6823658 - Jan 8, 2024</p>
-    </div>
+    <Link href={`/applications/${loan_request.id}`}>
+      <Card className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors">
+        <CardContent className="flex justify-between py-2 gap-4 items-center">
+          <div className="space-y-2">
+            <h3 className="text-lg font-medium">Home Loan Application</h3>
+            <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+              <Badge variant="outline">Real Estate</Badge>
+              <span className="px-2 py-1 rounded-full bg-yellow-100 text-yellow-600 dark:bg-green-900/20 dark:text-green-400">
+                {loan_request.status}
+              </span>
+              <span>Application ID: #{loan_request.id}</span>
+              <span>
+                {new Date(loan_request.loan_date).toLocaleDateString()}
+              </span>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="text-2xl font-bold">
+              &#8377;{loan_request.loan_amount}
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Loan Amount
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    </Link>
   );
 }
 
-function BarChart(props: any) {
-  return (
-    <div {...props}>
-      <ResponsiveBar
-        data={[
-          { name: "Jan", count: 111 },
-          { name: "Feb", count: 157 },
-          { name: "Mar", count: 129 },
-          { name: "Apr", count: 150 },
-          { name: "May", count: 119 },
-          { name: "Jun", count: 72 },
-        ]}
-        keys={["count"]}
-        indexBy="name"
-        margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
-        padding={0.3}
-        colors={["#2563eb"]}
-        axisBottom={{
-          tickSize: 0,
-          tickPadding: 16,
-        }}
-        axisLeft={{
-          tickSize: 0,
-          tickValues: 4,
-          tickPadding: 16,
-        }}
-        gridYValues={4}
-        theme={{
-          tooltip: {
-            chip: {
-              borderRadius: "9999px",
-            },
-            container: {
-              fontSize: "12px",
-              textTransform: "capitalize",
-              borderRadius: "6px",
-            },
-          },
-          grid: {
-            line: {
-              stroke: "#f3f4f6",
-            },
-          },
-        }}
-        tooltipLabel={({ id }) => `&#8377;{id}`}
-        enableLabel={false}
-        role="application"
-        ariaLabel="A bar chart showing data"
-      />
-    </div>
-  );
-}
+// id
+// bigint
+
+// number
+// name
+// character varying
+
+// string
+// age
+// integer
+
+// number
+// loan_amount
+// numeric
+
+// number
+// business_type
+// character varying
+
+// string
+// purpose
+// character varying
+
+// string
+// credit_score
+// integer
+
+// number
+// address
+// character varying
+
+// string
+// request_letter
+// text
+
+// string
+// marital_status
+// character varying
+
+// string
+// term
+// character varying
+
+// string
+// status
+// text
+
+// string

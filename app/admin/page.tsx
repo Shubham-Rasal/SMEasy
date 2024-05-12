@@ -1,13 +1,4 @@
-"use client";
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectItem,
-  SelectContent,
-  Select,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { ResponsiveBar } from "@nivo/bar";
 import { Calendar } from "@/components/ui/calendar";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -20,16 +11,24 @@ import {
   SettingsIcon,
   UsersIcon,
 } from "lucide-react";
-import { useState } from "react";
-import { addDays } from "date-fns";
+import BarChart from "@/components/BarChart";
+import { createClient } from "@/utils/supabase/server";
 
-export default function Dashboard() {
-  //todays date, 2 days back, 4dasys back
+export default async function Dashboard() {
+  const supabase = createClient();
 
-  const [dates, setDates] = useState<Date[]>([
-    addDays(new Date(), -2),
-    addDays(new Date(), -4),
-  ]);
+  let { data: loan_requests, error } = await supabase
+    .from("loan_requests")
+    .select("*");
+
+  if (error) {
+    console.log("Error fetching loan requests", error);
+  }
+
+  if (!loan_requests) {
+    loan_requests = [];
+  }
+
   return (
     <div key="1" className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
@@ -86,7 +85,7 @@ export default function Dashboard() {
               <div className="grid grid-cols-3 gap-4">
                 <div className="bg-transparent border-[#4ADE80] border p-4 rounded-lg">
                   <p className="text-xs text-[#4ADE80] mb-1">
-                    Applications (&#8377;)
+                    Requested (&#8377;)
                   </p>
                   <p className="text-lg font-semibold text-[#16A34A]">
                     &#8377;2,165,800
@@ -94,21 +93,23 @@ export default function Dashboard() {
                   <p className="text-xs text-[#16A34A]">+3.2%</p>
                 </div>
                 <div className="bg-transparent border-[#FDE047] border p-4 rounded-lg">
-                  <p className="text-xs text-[#FDE047] mb-1">
+                  <p className="text-xs text-[#927f1d] mb-1">
                     Applications (#)
                   </p>
-                  <p className="text-lg font-semibold text-[#D97706]">7</p>
-                  <p className="text-xs text-[#D97706]">+8.4%</p>
+                  <p className="text-lg font-semibold text-yellow-700">7</p>
+                  <p className="text-xs text-yellow-700">+8.4%</p>
                 </div>
                 <div className="bg-transparent border-[#FDBA74] border p-4 rounded-lg">
-                  <p className="text-xs text-[#FDBA74] mb-1">Loans ($)</p>
+                  <p className="text-xs text-yellow-700 mb-1">
+                    Deployed/Approved (&#8377;)
+                  </p>
                   <p className="text-lg font-semibold text-[#C2410C]">
                     &#8377;1,136,400
                   </p>
                   <p className="text-xs text-[#C2410C]">-0.9%</p>
                 </div>
               </div>
-              <BarChart className="pt-12" />
+              <BarChart className="pt-12 size-96" />
               <span className="text-xs text-muted-foreground mt-4">
                 (*) Application over Past few Months.
               </span>
@@ -118,8 +119,7 @@ export default function Dashboard() {
                 <h2 className="text-xl font-semibold">Daily Activity</h2>
               </div>
               <Calendar
-                mode="multiple"
-                selected={dates}
+                // mode="multiple"
                 // onSelect={(date) => setDates(ate)}
                 className="mb-6"
               />
@@ -163,16 +163,20 @@ export default function Dashboard() {
                 <h3 className="text-lg font-semibold">
                   In Process Applications{" "}
                   <Badge className="ml-2" variant="default">
-                    12
+                    {loan_requests.length}
                   </Badge>
                 </h3>
               </div>
               <div className="flex gap-4 overflow-x-auto scrollbar-hide">
-                <LoadCard />
-                <LoadCard />
-                <LoadCard />
-                <LoadCard />
-                <LoadCard />
+                {loan_requests.map((loan_request) => (
+                  <LoadCard
+                    key={loan_request.id}
+                    id={loan_request.id}
+                    amount={loan_request.loan_amount}
+                    status={loan_request.status}
+                    name={loan_request.purpose}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -182,70 +186,17 @@ export default function Dashboard() {
   );
 }
 
-function LoadCard() {
+function LoadCard(props: any) {
   return (
     <div className="flex flex-col justify-between items-start bg-white text-slate-900 border border-black p-4 rounded-lg shrink-0 w-[300px]">
       <div className="flex justify-between w-full">
-        <p className="text-sm font-bold ">Student Loan</p>
-        <Badge className="self-start" variant="default">
-          In-Process
+        <p className="text-sm font-bold ">{props.name}</p>
+        <Badge className="self-start" variant="outline">
+          {props.status}
         </Badge>
       </div>
-      <p className="text-4xl font-bold">$8,000</p>
-      <p className="text-xs text-muted-foreground">#6823658 - Jan 8, 2024</p>
-    </div>
-  );
-}
-
-function BarChart(props: any) {
-  return (
-    <div {...props}>
-      <ResponsiveBar
-        data={[
-          { name: "Jan", count: 11 },
-          { name: "Feb", count: 5 },
-          { name: "Mar", count: 19 },
-          { name: "Apr", count: 10 },
-          { name: "May", count: 9 },
-          { name: "Jun", count: 7 },
-        ]}
-        keys={["count"]}
-        indexBy="name"
-        margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
-        padding={0.3}
-        colors={["#2563eb"]}
-        axisBottom={{
-          tickSize: 0,
-          tickPadding: 16,
-        }}
-        axisLeft={{
-          tickSize: 0,
-          tickValues: 4,
-          tickPadding: 16,
-        }}
-        gridYValues={4}
-        theme={{
-          tooltip: {
-            chip: {
-              borderRadius: "9999px",
-            },
-            container: {
-              fontSize: "12px",
-              textTransform: "capitalize",
-              borderRadius: "6px",
-            },
-          },
-          grid: {
-            line: {
-              stroke: "#f3f4f6",
-            },
-          },
-        }}
-        tooltipLabel={({ id }) => `${id}`}
-        enableLabel={false}
-        role="application"
-        ariaLabel="A bar chart showing data"
-      />
+      <p className="text-2xl font-bold">&#8377;{props.amount}</p>
+      <p className="text-xs text-muted-foreground">#{props.id}</p>
     </div>
   );
 }
