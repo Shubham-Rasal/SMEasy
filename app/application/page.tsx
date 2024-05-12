@@ -71,7 +71,8 @@ export default function LoanApplication() {
       let fileData = null;
       reader.onloadend = function () {
         if(!reader.result) return;
-        const base64data = reader.result.split(",")[1];
+        const result = reader.result as string;
+        const base64data = (result).split(",")[1];
         console.log(base64data);
 
         const questions = [
