@@ -29,17 +29,28 @@ import { Label } from "@/components/ui/label";
 import { ResponsiveLine } from "@nivo/line";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { createClient } from "@/utils/supabase/client";
+import { useState } from "react";
 
-export default function ApplicationPage() {
-
+export default function ApplicationPage({
+  params,
+}: {
+  params: { app_id: string };
+}) {
   const supabase = createClient();
 
-  const onApprove = async  () => {
+  const [status, setStatus] = useState("pending")
+
+  const handleApproval = async () => {
+    const { data, error } = await supabase
+      .from("loan_requests")
+      .update({ status: "approved" })
+      .eq("id", params.app_id)
+      .select();
+
+      setStatus("Approved")
     
-    const res = supabase.from
 
-  }
-
+  };
 
   return (
     <div key="1" className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
@@ -380,7 +391,7 @@ export default function ApplicationPage() {
             <Card>
               <CardHeader>
                 <CardDescription>Decision</CardDescription>
-                <CardTitle>Summary</CardTitle>
+                <CardTitle>Summary by AI</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4">
@@ -390,14 +401,17 @@ export default function ApplicationPage() {
                         Application Status
                       </p>
                       <p className="text-gray-500 dark:text-gray-400">
-                        Approved
+                        {status}
                       </p>
                     </div>
                     <div>
                       <Button
-                      
-                      size="sm" className="bg-blue-300" variant="outline">
-                        Approve
+                        onClick={handleApproval}
+                        size="sm"
+                        className="bg-blue-300"
+                        variant="outline"
+                      >
+                        {status == "pending" ? "Approve": "Already approved!"}
                       </Button>
                     </div>
                   </div>
