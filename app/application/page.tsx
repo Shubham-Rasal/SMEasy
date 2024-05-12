@@ -47,7 +47,7 @@ export default function LoanApplication() {
       return;
     }
 
-    const arr = [...files];
+    const arr = [...files]
 
     arr.forEach(async (file: File) => {
       // const { data, error } = await client.storage
@@ -70,6 +70,7 @@ export default function LoanApplication() {
       if (!reader) return;
       let fileData = null;
       reader.onloadend = function () {
+        if(!reader.result) return;
         const base64data = reader.result.split(",")[1];
         console.log(base64data);
 

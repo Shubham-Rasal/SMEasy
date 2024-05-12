@@ -12,16 +12,42 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
+import { createClient } from "@/utils/supabase/server";
+import { CheckCircleIcon } from "lucide-react";
+export default async function LoanStatus({
+  params,
+}: {
+  params: { loan_id: string };
+}) {
+  const supabase = createClient();
 
-export default function LoanStatus() {
+  const { data } = await supabase.auth.getUser();
+  const { user } = data;
+
+  let { data: loan_requests, error } = await supabase
+    .from("loan_requests")
+    .select("*")
+    .eq("id", params.loan_id);
+
+  if (error) {
+    console.log("Error fetching loan requests", error);
+  }
+
+  if (!loan_requests) {
+    loan_requests = [];
+  }
+
+  console.log(loan_requests);
+  const loan = loan_requests[0];
+
   return (
     <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6">
-            <Link className="flex items-center gap-2 font-semibold" href="#">
+            <Link className="flex items-center gap-2 font-semibold" href="/">
               <Package2Icon className="h-6 w-6" />
-              <span className="">SMEasy</span>
+              <span>SMEasy</span>
             </Link>
             <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
               <BellIcon className="h-4 w-4" />
@@ -32,12 +58,12 @@ export default function LoanStatus() {
             <nav className="grid items-start px-4 text-sm font-medium">
               <Link
                 className="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
-                href="#"
+                href="/dashboard"
               >
                 <ClipboardIcon className="h-4 w-4" />
                 Loan Applications
                 <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                  3
+                  {loan_requests.length}
                 </Badge>
               </Link>
               <Link
@@ -45,7 +71,10 @@ export default function LoanStatus() {
                 href="/schemes"
               >
                 <HomeIcon className="h-4 w-4" />
-                Maached Schemes
+                Matched Schemes
+                <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-500">
+                  2
+                </Badge>
               </Link>
             </nav>
           </div>
@@ -98,9 +127,9 @@ export default function LoanStatus() {
               </Button>
             </Link>
             <h1 className="font-semibold text-lg md:text-xl">
-              Loan Application #3102 -
+              Loan Application #{loan.id} -
               <span className="font-normal text-gray-500 dark:text-gray-400">
-                John Doe
+                {loan.name}
               </span>
             </h1>
           </div>
@@ -120,7 +149,7 @@ export default function LoanStatus() {
                         Application Received
                       </div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Your loan application was received on May 1, 2023.
+                        Your loan application was received on May 1, 2024.
                       </div>
                     </div>
                   </div>
@@ -133,7 +162,7 @@ export default function LoanStatus() {
                         Documents Reviewed
                       </div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Your documents were reviewed on May 5, 2023.
+                        Your documents were reviewed on May 5, 2024.
                       </div>
                     </div>
                   </div>
@@ -146,7 +175,7 @@ export default function LoanStatus() {
                         Credit Check Completed
                       </div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Your credit check was completed on May 10, 2023.
+                        Your credit check was completed on May 10, 2024.
                       </div>
                     </div>
                   </div>
@@ -157,7 +186,7 @@ export default function LoanStatus() {
                     <div>
                       <div className="text-sm font-medium">Final Decision</div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Your loan application has been approved.
+                        Your loan application has been {loan.status}
                       </div>
                     </div>
                   </div>
@@ -342,6 +371,25 @@ function GaugeIcon(props: any) {
     </svg>
   );
 }
+
+// id: 2,
+// name: 'Rahul Sharma',
+// age: 32,
+// loan_amount: 120000,
+// business_type: 'Textiles',
+// purpose: 'Raw Material Purchase',
+// credit_score: 710,
+// address: '22 MG Road, Bangalore, India',
+// request_letter: 'I am seeking funds to purchase raw materials for my textile business.',
+// marital_status: 'Married',
+// term: '18 months',
+// status: 'pending',
+// loan_date: '2024-05-12T01:06:03.433481+00:00',
+// revenue: 0.384269878371791,
+// transaction_amt_avg: 0.0654861100806616,
+// num_transactions: 1,
+// email_id: 'test@test.com'
+// }
 
 function HomeIcon(props: any) {
   return (

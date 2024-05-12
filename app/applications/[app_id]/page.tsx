@@ -29,13 +29,16 @@ import { Label } from "@/components/ui/label";
 import { ResponsiveLine } from "@nivo/line";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 
-export default function Dashboard() {
+export default function ApplicationPage() {
   return (
     <div key="1" className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6">
-            <Link className="flex items-center gap-2 font-semibold" href="#">
+            <Link
+              className="flex items-center gap-2 font-semibold"
+              href="/applications"
+            >
               <Package2Icon className="h-6 w-6" />
               <span>SMEasy</span>
             </Link>
@@ -165,7 +168,6 @@ export default function Dashboard() {
                 <CardContent>
                   <div className="grid gap-4">
                     <BarChart className="aspect-[4/3]" />
-                    <PieChart className="aspect-[4/3]" />
                   </div>
                 </CardContent>
               </Card>
@@ -311,11 +313,7 @@ export default function Dashboard() {
                           {"\n                                            "}
                         </p>
                       </div>
-                      <div>
-                        <Button size="sm" variant="outline">
-                          View
-                        </Button>
-                      </div>
+                      <div></div>
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
@@ -331,11 +329,7 @@ export default function Dashboard() {
                           understanding of the industry and the target market.
                         </p>
                       </div>
-                      <div>
-                        <Button size="sm" variant="outline">
-                          View
-                        </Button>
-                      </div>
+                      <div></div>
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
@@ -350,11 +344,7 @@ export default function Dashboard() {
                           the loan application.
                         </p>
                       </div>
-                      <div>
-                        <Button size="sm" variant="outline">
-                          View
-                        </Button>
-                      </div>
+                      <div></div>
                     </div>
                   </div>
                 </CardContent>

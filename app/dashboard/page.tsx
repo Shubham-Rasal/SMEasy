@@ -17,9 +17,17 @@ import { createClient } from "@/utils/supabase/server";
 export default async function Applications() {
   const supabase = createClient();
 
+  const { data } = await supabase.auth.getUser();
+  const { user } = data;
+  const email = user?.email;
+
+  console.log(email);
+
   let { data: loan_requests, error } = await supabase
     .from("loan_requests")
-    .select("*");
+    .select("*")
+    // Filters
+    .eq("email_id", email);
 
   if (error) {
     console.log("Error fetching loan requests", error);
@@ -81,31 +89,6 @@ export default async function Applications() {
               </div>
             </div>
             <div className="grid gap-4">
-              <Link href="/dashboard/12345">
-                <Card className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors">
-                  <CardContent className="flex justify-between py-2 gap-4 items-center">
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-medium">
-                        Home Loan Application
-                      </h3>
-                      <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                        <Badge variant="outline">Real Estate</Badge>
-                        <span className="px-2 py-1 rounded-full bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400">
-                          Approved
-                        </span>
-                        <span>Application ID: #12345</span>
-                        <span>April 15, 2023</span>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-2xl font-bold">&#8377;250,000</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Loan Amount
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
               {loan_requests.length == 0 ? (
                 <div className="text-center text-gray-500 dark:text-gray-400">
                   No loan requests found
