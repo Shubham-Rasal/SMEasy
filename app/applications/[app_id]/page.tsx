@@ -28,8 +28,19 @@ import { ResponsivePie } from "@nivo/pie";
 import { Label } from "@/components/ui/label";
 import { ResponsiveLine } from "@nivo/line";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
+import { createClient } from "@/utils/supabase/client";
 
 export default function ApplicationPage() {
+
+  const supabase = createClient();
+
+  const onApprove = async  () => {
+    
+    const res = supabase.from
+
+  }
+
+
   return (
     <div key="1" className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
@@ -111,7 +122,7 @@ export default function ApplicationPage() {
                   alt="Avatar"
                   className="rounded-full"
                   height="32"
-                  src="/thirteen.svg"
+                  src="/test.svg"
                   style={{
                     aspectRatio: "32/32",
                     objectFit: "cover",
@@ -229,7 +240,7 @@ export default function ApplicationPage() {
               <Card>
                 <CardHeader>
                   <CardDescription>Feasibility</CardDescription>
-                  <CardTitle>Analysis</CardTitle>
+                  <CardTitle>Analysis of Market</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-col">
@@ -353,7 +364,7 @@ export default function ApplicationPage() {
             <Card>
               <CardHeader>
                 <CardDescription>Communication</CardDescription>
-                <CardTitle>Applicant Interaction</CardTitle>
+                <CardTitle>Coming Soon....</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4">
@@ -383,8 +394,10 @@ export default function ApplicationPage() {
                       </p>
                     </div>
                     <div>
-                      <Button size="sm" variant="outline">
-                        View Details
+                      <Button
+                      
+                      size="sm" className="bg-blue-300" variant="outline">
+                        Approve
                       </Button>
                     </div>
                   </div>

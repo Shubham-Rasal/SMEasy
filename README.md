@@ -1,15 +1,12 @@
-
 <div align="center">
 
-<img src="https://github.com/ayush4345/Deano/blob/content/client/public/assets/logo.jpeg" alt="deano_logo" border="1" width="100"/>
-
-
   <p align="center">
-    Shaping the world with Decentralised Annotations!
+    Shaping the world lending with SMEasy
   </p>
 </div>
 
 ---
+
 <br/>
 
 ![image](https://github.com/Shubham-Rasal/SMEasy/assets/95695273/90d6fd28-5d8c-4c50-a39b-1d404008a579)
@@ -24,7 +21,6 @@
 
 ![image](https://github.com/Shubham-Rasal/SMEasy/assets/95695273/fef6a7e9-6a86-4a59-8497-2037c9f2c13b)
 
-
 <br/>
 
 ## Table of Contents
@@ -33,28 +29,26 @@
 - [Project Idea](#project-idea)
 - [Our Approach](#our-approach)
   - [Actors](#actors)
-  - [Workflow](#workflow)
-  - [How Accuracy is maintained](#how-accuracy-is-maintained)
-  - [How Annotators are rewarded](#how-annotators-are-rewarded)
-  - [Summary](#summary)
-- [Challenges We Faced](#challenges-we-faced)
+  - [How System Works](#how-system-works)
+    - [1. Finding Useful Govenment Schemes](#1-finding-useful-govenment-schemes)
+  - [2. Analysis and Detailed View to the Bank Manager](#2-analysis-and-detailed-view-to-the-bank-manager)
+- [Challenges I Faced](#challenges-i-faced)
 - [Technologies We Used](#technologies-we-used)
- 
-- [Architecture](#architecture)
+  - [HuggingFace](#huggingface)
+  - [Kaggle](#kaggle)
 - [Installation and Setup Guide](#installation-and-setup-guide)
   - [Install the Next.js Frontend](#install-the-nextjs-frontend)
 - [Team Members](#team-members)
 
 <br/>
 
-
 ## Project Idea
 
-* Loan eligibility is largely determined by credit scores.
+- Loan eligibility is largely determined by credit scores.
 
 This means that you need to be part of the financial system to avail such benefits.
 
-There's a need to develop a new type of score that universally profiles the majority of the population. 
+There's a need to develop a new type of score that universally profiles the majority of the population.
 
 The parameters can include - regular rent payments, utility payments, daily collection for a shop, assets, business type, customer types served by the user, etc.
 
@@ -64,58 +58,39 @@ Small businesses can get loan offers based on their transaction history. Conside
 
 ## Our Approach
 
+### Actors
+
+- **Applicants** - SME owners who apply for small loans.
+- **Bank Manager** - Approver of the loans
 
 
-### Actors 
+### How System Works
 
-- **Vendors** - Vendors are the people who upload their data to the platform and request for annotations. 
-- **Annotators** - Annotators are the people who annotate the data uploaded by the vendors.
+The system works as follows:
 
-### Workflow
+- The applicant fills in a detailed application form that has fields on which our ml models are trained.
+- This application and profile of the applicant is used in two ways - 
 
-- Vendors upload their data to the platform and request for annotations.
-- Annotators verify the authenticity of the data and annotate the data.
-- Annotators are rewarded for their contribution to the platform based on a reputation metric for each individual.
+#### 1. Finding Useful Govenment Schemes
 
-### How Accuracy is maintained
-
-The accuracy of the annotations is maintained by a reputation aggregation system. Each annotator has a reputation score which is calculated based on the accuracy of the annotations done by the annotator.
-
-Multiple annotators annotate the same data. These annotations are aggregated and checkout for majority vote. The annotators who have the same annotations as the majority are rewarded with a reputation score. The annotators who have different annotations are penalized with a negative reputation score.
-
-By Game Theory, we can prove that we can go forward with this optimistic assumption that the majority of the annotators will be honest and will annotate the data correctly and there will be a few annotators who will try to cheat the system due to the design of the reputation system.
-
-### How Annotators are rewarded
-
-Each annotator will be rewarded based on the reputation score. The reputation score is calculated based on the accuracy of the annotations done by the annotator. The reputation score is calculated using the following formula.
-
-```
-Reputation Score = (Number of correct annotations - Number of incorrect annotations) / (Number of correct annotations + Number of incorrect annotations)
-```
-
-This score is continuously updated as the annotator annotates more data. The reputation score is used to calculate the payout for each annotator. The payout is calculated using the following formula.
-
-```
-Payout = Reputation Score * Base Payout
-```
-
-### Summary
-* Vendors entrust their data to Deano for accurate annotations.
-* Annotators, who play a critical role, meticulously label datasets within specific timeframes.
-* 'DAN' tokens, Deano's proprietary cryptocurrency, are used by vendors to create job listings with enticing bounties.
-* Annotators receive rewards in DAN tokens, redeemable through weekly payouts.
-* The platform employs a sophisticated reputation system, overseen by Sismo, where the accuracy of annotations is paramount. Incorrect annotations may result in reputation deductions and potential reductions in payouts.
-* To facilitate seamless communication, Deano offers a chat function powered by XMTP-JS, aiding discussions between annotators and vendors, especially concerning job-related inquiries.
-* In future developments, Deano plans to integrate a feature for DAN token transfers through a bridge accessible within the chat interface.
-* Data management is efficiently handled with the assistance of Tableland, serving as a central repository for vendor job listings. Secure dataset storage is ensured through the utilization of the IPFS service web3.storage, enhancing the overall robustness and security of the platform.
-<br/>
+Each applicant is semantically checked with the existing database of schemes that is found from public sources. These are then shown to the applicants.
 
 
-## Challenges We Faced
+### 2. Analysis and Detailed View to the Bank Manager
 
-* Implementing onchain testing for Sismo proved to be a challenging task, as tracking onchain changes was intricate.
-* While working with XMTP Chat, we faced difficulties adapting to the latest features due to breaking changes in the latest versions. Fortunately, we received valuable support from the community in resolving these conflicts.
-* Configuring and setting up the workflow for Tableland initially presented challenges. However, with substantial community assistance, we successfully addressed these issues, ensuring its smooth operation.
+  - All the details given by the applicant are analysis beforehand automatically by our AI.
+  - This ensure the manager spends less time doing the tedius work.
+  - The application is annotated by the AI to give it's insights to help the manager decide whether to approve the project or not.
+  - Long text documents like financial statements, bank statemnets, request letters are summarised by the AI and insights are given to the approver.
+  - Final Approval is done by the manager.
+
+  <br/>
+
+## Challenges I Faced
+
+- Hacking Solo was a challenge with so little time available
+- UI took up most of my time.
+
 
 <br/>
 
@@ -125,18 +100,19 @@ Payout = Reputation Score * Base Payout
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 ### HuggingFace
-* Used it for the ML model inference
 
+- Used it for the ML model inference
 
 ### Kaggle
-* Used for dataset, and preliminary exploration
+
+- Used for dataset, and preliminary exploration
 
 <br/>
-
 
 <br/>
 
 ## Installation and Setup Guide
+
 To get started with Deano, follow these steps:
 
 1. Clone the repo: `git clone <this repo>`
@@ -153,4 +129,3 @@ To get started with Deano, follow these steps:
 ## Team Members
 
 [Shubham Rasaal](https://devfolio.co/@bluequbits)
-
